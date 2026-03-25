@@ -113,9 +113,9 @@ If you plan to contribute to development by adding features or address an existi
 [issue](https://github.com/AFM-SPM/TopoStats/issues) please refer to the [contributing](../contributing/index.md)
 section and pay particular attention to the section about installing additional dependencies.
 
-We include [notebooks](notebooks.md) which show how to use different aspects of TopoStats. If you wish to try these out the
-[Jupyter Noteooks](https://jupyter.org/) then you can install the dependencies that are required from the cloned
-TopoStats repository using...
+We include [notebooks](notebooks.md) which show how to use different aspects of TopoStats. If you wish to try these
+out the [Jupyter Noteooks](https://jupyter.org/) then you can install the dependencies that are required from
+the cloned TopoStats repository using...
 
 ```bash
 pip install ".[notebooks]"
