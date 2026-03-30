@@ -137,7 +137,7 @@ def merge_mappings(map1: MutableMappingType, map2: MutableMappingType) -> Mutabl
 def write_config_with_comments(  # noqa: C901 # pylint: disable=too-many-branches
     args: Namespace = None,
     valid_config: tuple[str] = ("default", "simple", "mplstyle", "var_to_label"),
-    valid_module: tuple[str] = ("topostats"),
+    valid_module: tuple[str] = ("afmslicer", "topostats"),
 ) -> None:
     """
     Write a sample configuration with in-line comments.

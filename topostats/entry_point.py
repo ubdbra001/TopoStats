@@ -1195,6 +1195,13 @@ def create_parser() -> arg.ArgumentParser:
         help="Path to where the YAML file should be saved (default './' the current directory).",
     )
     create_config_parser.add_argument(
+        "-m",
+        "--module",
+        dest="module",
+        default="topostats",
+        help="The AFM module to use, currently `topostats` (default) and `afmslicer` are supported.",
+    )
+    create_config_parser.add_argument(
         "-c",
         "--config",
         dest="config",
