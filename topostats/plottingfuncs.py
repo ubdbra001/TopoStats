@@ -392,7 +392,6 @@ class Images:
                                     color=color,
                                     linewidth=self.trace_linewidth,
                                 )
-
             # save the figure
             plt.title(self.title)
             plt.xlabel("Nanometres")
@@ -478,7 +477,7 @@ class Images:
                             color=colour,
                             linewidth=self.trace_linewidth,
                         )
-
+                        
                 plt.title(self.title)
                 plt.xlabel("Nanometres")
                 plt.ylabel("Nanometres")
