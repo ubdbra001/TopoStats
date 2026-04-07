@@ -17,6 +17,8 @@ import topostats
 from topostats.classes import GrainCrop
 from topostats.logs.logs import LOGGER_NAME
 from topostats.theme import Colormap
+from pathlib import Path
+import yaml
 
 # pylint: disable=dangerous-default-value
 # pylint: disable=too-many-arguments
@@ -184,7 +186,10 @@ class Images:
         histogram_bins: int | None = None,
         savefig_dpi: str | float | None = None,
         number_grains: bool = False,
+        trace_linewidth: float = 3.0
     ) -> None:
+
+
         """
         Initialise the class.
 
@@ -283,6 +288,7 @@ class Images:
         self.histogram_bins = mpl.rcParams["hist.bins"] if histogram_bins is None else histogram_bins
         self.savefig_dpi = mpl.rcParams["savefig.dpi"] if savefig_dpi is None else savefig_dpi
         self.number_grains = number_grains
+        self.trace_linewidth = trace_linewidth
 
     def plot_histogram_and_save(self) -> tuple | None:
         """
@@ -386,7 +392,7 @@ class Images:
                                         (image.shape[0] - (min_row + point[0])) * self.pixel_to_nm_scaling,
                                     ],
                                     color=color,
-                                    linewidth=1,
+                                    linewidth=self.trace_linewidth,
                                 )
 
             # save the figure
@@ -472,7 +478,7 @@ class Images:
                                 (grain_crop.image.shape[0] - point[0]) * self.pixel_to_nm_scaling,
                             ],
                             color=colour,
-                            linewidth=3,
+                            linewidth=self.trace_linewidth,
                         )
 
                 plt.title(self.title)
@@ -566,7 +572,7 @@ class Images:
                         grain_coords[:, 1] * self.pixel_to_nm_scaling,
                         (shape[0] - grain_coords[:, 0]) * self.pixel_to_nm_scaling,
                         c="c",
-                        linewidth=1,
+                        linewidth=self.trace_linewidth,
                     )
 
             plt.title(self.title)

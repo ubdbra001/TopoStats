@@ -941,6 +941,7 @@ def run_curvature_stats(
                         filename=f"{topostats_object.filename}_curvature",
                         output_dir=core_out_path,
                         **plotting_config["plot_dict"]["curvature"],
+                        
                     ).plot_curvatures(
                         image=topostats_object.image,
                         grain_crops=topostats_object.grain_crops,
