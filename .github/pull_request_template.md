@@ -14,10 +14,9 @@ Before submitting a Pull Request please check the following.
 
 - [ ] Existing tests pass.
 - [ ] Documentation has been updated and builds. Remember to update as required...
-  - [ ] `docs/configuration.md`
-  - [ ] `docs/usage.md`
-  - [ ] `docs/data_dictionary.md`
-  - [ ] `docs/advanced.md` and new pages it should link to.
+  - [ ] `docs/usage/configuration.md`
+  - [ ] `docs/usage/data_dictionary.md`
+  - [ ] `docs/usage/advanced.md` and new pages it should link to.
 - [ ] Pre-commit checks pass.
 - [ ] New functions/methods have typehints and docstrings.
 - [ ] New functions/methods have tests which check the intended behaviour is correct.

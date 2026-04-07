@@ -13,9 +13,12 @@ issue](https://github.com/AFM-SPM/TopoStats/issues/new/choose) using one of the 
 
 ### Cloning the repository
 
-If you wish to make changes yourself you will have to [fork][git_fork] the repository to your own account and then
-[clone that][git_clone] if you are not a member of AFM-SPM Organisation. If you are a member then you can [clone the
-repository][git_clone] and make contributions directly.
+If you wish to make changes yourself you will have to
+[fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the repository to your own account and then [clone
+that](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) if you are not
+a member of AFM-SPM Organisation. If you are a member then you can [clone the
+repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) and make
+contributions directly.
 
 ```bash
 # Member of AFM-SPM Organisation
@@ -41,10 +44,10 @@ work on the issue you wish to address. It is not compulsory but we try to use a 
 that shows who has worked on the branch, the issue it pertains to and a short description of the work. To which end you
 will see branches with the form `<GITHUB_USERNAME>/<GITHUB_ISSUE>-<DESCRIPTION>`. Some examples are shown below...
 
-| Branch                                | User                                                | Issue                                                  | Description                                                                              |
-| :------------------------------------ | :-------------------------------------------------- | :----------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-| `ns-rse/259-contributing`             | [`ns-rse`](https://github.com/ns-rse)               | [259](https://github.com/AFM-SPM/TopoStats/issues/259) | `contributing` short for the issue subject _Add contributing section to documentation_.  |
-| `SylviaWhittle/204-nanometre-scaling` | [`SylviaWhittle`](https://github.com/SylviaWhittle) | [204](https://github.com/AFM-SPM/TopoStats/issues/259) | `nanometre-scaling` short for the issue subject _Colour scale in nanometers not pixels_. |
+| Branch                                | User                                                | Issue                                                  | Description                                                                                 |
+| :------------------------------------ | :-------------------------------------------------- | :----------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+| `ns-rse/259-contributing`             | [`ns-rse`](https://github.com/ns-rse)               | [259](https://github.com/AFM-SPM/TopoStats/issues/259) | `contributing` is short for the issue subject _Add contributing section to documentation_.  |
+| `SylviaWhittle/204-nanometre-scaling` | [`SylviaWhittle`](https://github.com/SylviaWhittle) | [204](https://github.com/AFM-SPM/TopoStats/issues/259) | `nanometre-scaling` is short for the issue subject _Colour scale in nanometers not pixels_. |
 
 How you create a branch depends on how you use Git, some use the integration provided by their IDE, others dedicated
 clients such as [GitKraken](https://www.gitkraken.com/) and some may use the command line interface. These instructions
@@ -134,7 +137,7 @@ defining their functionality, parameters and return values and pylint will note 
 by way of the `missing-function-docstring` condition.
 
 Further, when new methods are incorporated into the package that introduce changes to the configuration they should be
-documented under [Parameter Configuration](configuration). [pre-commit](#pre-commit) has the
+documented under [Parameter Configuration](../usage/configuration.md). [pre-commit](#pre-commit) has the
 [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) hook enabled to lint all Markdown files and will
 where possible automatically fix things, but some issues need resolving manually.
 
@@ -167,11 +170,9 @@ the file you wish to debug and use the `@snoop` decorator around the function/me
 
 ## Configuration
 
-As described in [Parameter Configuration](configuration) options are primarily passed to TopoStats via a
+As described in [Parameter Configuration](../usage/configuration.md) options are primarily passed to TopoStats via a
 [YAML](https://yaml.org) configuration file. When introducing new features that require configuration options you will
-have to ensure that the default configuration file (`topostats/default.yaml`) is updated to include your options and
-that corresponding arguments are added to the entry point (please refer to [Adding Modules](contributing/adding_modules)
-page which covers this).
+have to ensure that the default configuration file (`topostats/default.yaml`) is updated to include your options.
 
 Further the `topostats.validation.validate.config()` function, which checks a valid configuration file with all necessary
 fields has been passed when invoking `topostats` sub-commands, will also need updating to include new options in the
@@ -190,6 +191,3 @@ so are provided.
 - [Code Quality Assistance Tips and Tricks, or How to Make Your Code Look Pretty? |
   PyCharm](https://www.jetbrains.com/help/pycharm/tutorial-code-quality-assistance-tips-and-tricks.html#525ee883)
 - [Reformat and rearrange code | PyCharm](https://www.jetbrains.com/help/pycharm/reformat-and-rearrange-code.html)
-
-[git_clone]: https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
-[git_fork]: https://docs.github.com/en/get-started/quickstart/fork-a-repo

@@ -14,8 +14,8 @@ ordering worked successfully, and whether the skeleton matches the underlying sa
 
 This smooths the ordered trace by using an average of splines through the ordered coordinates (`spline` method) or using
 the mean coordinate of a rolling window (`rolling_window` method), helping to resolve length errors in jagged in the
-skeletons. It adds the contour length and end-to-end euclidean distance to the `molecule_statistics.csv` and the sum and
-average of these respectively to the `grain_statistics.csv`.
+skeletons. It adds the contour length and end-to-end euclidean distance to the `all_mol_statistics.csv` and the sum and
+average of these respectively to the `all_statistics.csv`.
 
 Some quick FYI's:
 
@@ -77,19 +77,6 @@ For linear smooth traces, the same as above occurs however, the initial and fina
 smoothed trace as to not drastically reduce the length of the smoothed trace.
 
 ![difference between window sizes](../_static/images/splining/rw_sizes.png)
-
-##### Resampling
-
-As an optional extra step in the rolling window method, the smoothed coordinates can be resampled to a set of
-coordinates that are evenly spaced in space, ie each coordinate is say 1nm apart. This is not the same as interpolation
-as interpolation is not guaranteed to be evenly spaced.
-
-Using resampling can make the results of curvature measurements more representative of the actual curvature of the
-trace.
-
-![example of unevenly spaced trace coordinates](../_static/images/splining/trace_coords_even_uneven_spacing.png)
-
-![example of curvature using unevenly spaced trace coordinates](../_static/images/splining/trace_coords_even_uneven_spacing_curvature.png)
 
 ## Outputs
 

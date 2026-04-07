@@ -1,4 +1,4 @@
-# How to add modules
+# Adding Modules
 
 ## Basic Functionality
 
@@ -11,9 +11,9 @@ functionality is as expected now and in the future should refactoring be underta
 
 Configuration options live in `topostats/default_config.yaml` you should create a nested object for the options
 corresponding to your module. The configuration nomenclature should match _exactly_ the options of your modules
-class/function as this allows the use of [`**kwargs`][python_kwargs] to be used to pass the options from the loaded
-dictionary to the function without having to explicitly map them to the class/function arguments. This might seem fickle
-or excessive but it saves you and others work in the long run.
+class/function as this allows the [`**kwargs`][python_kwargs] to be used to pass the options from the loaded dictionary
+to the function without having to explicitly map them to the class/function arguments. This might seem fickle or
+excessive but it saves you and others work in the long run.
 
 ## Modularity
 
@@ -151,7 +151,7 @@ the first argument and the remaining configuration options. These will typically
 defined your `topostats/processing.py`. As mentioned above keeping configuration names consistent between configuration
 files and functions means [`**kwargs`][python_kwargs] can be used when passing options to functions.
 
-Continuing with our example let's look at the [`topostats.processing.run_filters()`][topostats_entry_point_filters]
+Continuing with our example let's look at the [`topostats.processing.run_filters()`][topostats_entry_point_filter]
 function.
 
 ```python
@@ -206,10 +206,7 @@ def run_filters(
         if plotting_config["run"]:
             plotting_config.pop("run")
             LOGGER.info(f"[{filename}] : Plotting Filtering Images")
-            if (
-                "all" in plotting_config["image_set"]
-                or "filters" in plotting_config["image_set"]
-            ):
+            if plotting_config["image_set"] == "all":
                 filter_out_path.mkdir(parents=True, exist_ok=True)
                 LOGGER.debug(
                     f"[{filename}] : Target filter directory created : {filter_out_path}"
@@ -321,43 +318,6 @@ The files that are to be processed are first loaded to give the list of images t
 function is defined as `processing_function` with all of the arguments before running in parallel using `Pool`. The
 [`tqdm`][tqdm] package is leverage to give a progress bar and after completion the configuration file is written to file
 before a completion message is run.
-
-##### Results
-
-Before we start the parallel processing we create a dictionary `results = defaultdict()` which will have the results of
-processing added to. Some steps in processing return more than one object, for example `grainstats` returns statistics
-for the image along with height profiles. In such cases we need to instantiate a dictionary to hold each set of results
-across images and included a holder in the `for ... in pool.imap_unordered(...):` to store the results before adding the
-results to the dictionary. For `run_modules.grainstats()` this looks like the below code. We create two dictionaries
-`results` and `height_profile_all` and in our call for `for` we have `img` (a string representing the image name),
-`result` (the returned Pandas DataFrame of grain statistics for the given image) and `height_profiles` (the height
-profile dictionary for the grains in that image).
-
-```python
-with Pool(processes=config["cores"]) as pool:
-    results = defaultdict()
-    height_profile_all = defaultdict()
-    with tqdm(
-        total=len(img_files),
-        desc=f"Processing images from {config['base_dir']}, results are under {config['output_dir']}",
-    ) as pbar:
-        for img, result, height_profiles in pool.imap_unordered(
-            processing_function,
-            all_scan_data.img_dict.values(),
-        ):
-            results[str(img)] = results
-            height_profile_all[str(img)] = height_profiles
-            pbar.update()
-
-            # Display completion message for the image
-            LOGGER.info(
-                f"[{img}] Grainstats completed (NB - Filtering was *not* re-run)."
-            )
-```
-
-Note that your `processing.process_<stage>` function which is used in the call to `processing_function` should return a
-tuple, the first item of which is the `topostats_object["filename"]` (which will be stored in `img` and used as
-dictionary keys), the remaining items are the results that you expect to be returned.
 
 ## Conclusion
 

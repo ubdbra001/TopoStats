@@ -1,6 +1,6 @@
-# Usage
+# Getting Started
 
-After having [installed](installation) TopoStats you are ready to run it. For convenience TopoStats provides a command
+After having [installed](installation.md) TopoStats you are ready to run it. For convenience TopoStats provides a command
 line interface `topostats` that will load a default configuration file and process all images with reasonable
 default configuration options.
 
@@ -18,7 +18,7 @@ TopoStats will scan for all images within this directory but currently it will o
 
 ## Command Line Navigation
 
-TopoStats currently runs as a command-line program. To use it you will have to use a "prompt" or "terminal" (they're
+TopoStats currently runs as a command-line programme. To use it you will have to use a "prompt" or "terminal" (they're
 essentially the same thing). What you use will depend on your operating system, but the following are some simple
 commands on navigation. If you use Windows then for consistency it is recommended to install and use
 [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell).
@@ -78,7 +78,7 @@ The default location that TopoStats looks for scans is the directory from which 
 shell/terminal you will therefore need to do two things.
 
 1. Navigate to the location of the scans you wish to process using `cd /path/to/where/scans/are/located`.
-2. Activate the virtual environment under which you installed TopoStats (refer to [installed](installation) if unsure).
+2. Activate the virtual environment under which you installed TopoStats (refer to [installed](installation.md) if unsure).
 
 You can now run topostats by invoking `topostats process` and you should start to see some output similar to that below.
 
@@ -122,7 +122,7 @@ along with information about how to give feedback, report bugs and cite the soft
   Files Found                 : 1
   Successfully Processed      : 1 (100.0%)
   Configuration               : output/config.yaml
-  All statistics              : output/grain_statistics.csv
+  All statistics              : output/all_statistics.csv
   Distribution Plots          : output/summary_distributions
 
   Email                       : topostats@sheffield.ac.uk
@@ -141,7 +141,7 @@ along with information about how to give feedback, report bugs and cite the soft
 
 ## Help Options
 
-The main `topostats` program has a number of flags which can be specified to change the behaviour of how the program
+The main `topostats` programme has a number of flags which can be specified to change the behaviour of how the programme
 runs. You can view the possible options by supplying the `-h` or `--help` flag.
 
 ```bash
@@ -177,9 +177,9 @@ program:
   {process,load,filter,grains,grainstats,disordered-tracing,nodestats,ordered-tracing,splining,summary,create-config,create-matplotlibrc}
     process             Process AFM images. Additional arguments over-ride defaults or those in the configuration file.
     load                Load and save all images as .topostats files for subsequent processing.
-    filter              Load and filter images, saving as .topostats files for subsequent processing.
-    grains              Load filtered images from '.topostats' files and detect grains.
-    grainstats          Load images with grains from '.topostats' files and calculate statistics.
+    filter              WIP DO NOT USE - Load and filter images, saving as .topostats files for subsequent processing.
+    grains              WIP DO NOT USE - Load filtered images from '.topostats' files and detect grains.
+    grainstats          WIP DO NOT USE - Load images with grains from '.topostats' files and calculate statistics.
     disordered-tracing  WIP DO NOT USE - Skeletonise and prune objects to disordered traces.
     nodestats           WIP DO NOT USE - Calculate node statistics and disentangle molecules.
     ordered-tracing     WIP DO NOT USE - Ordered traces of pruned skeletons.
@@ -190,12 +190,12 @@ program:
                         Create a Matplotlibrc parameters file using the defaults.
 ```
 
-The global flags/options for modifying behaviour are listed. You then need to provide the name of the program you wish
+The global flags/options for modifying behaviour are listed. You then need to provide the name of the programme you wish
 to run which are listed at the bottom of the output along with a description.
 
-Each sub-program has its own specific set of options too which can be specified to override the settings in the
+Each sub-programme has its own specific set of options too which can be specified to override the settings in the
 configuration file that is loaded (either the default or the user specified configuration). To view these again use the
-`-h` or `--help` flag. For a more detailed description of the options see the [configuration](configuration) page.
+`-h` or `--help` flag. For a more detailed description of the options see the [configuration](configuration.md) page.
 
 ```bash
  ❱ topostats create-config --help
@@ -214,7 +214,7 @@ options:
   -s, --simple          Create a simple configuration file with only the most common options.
 ```
 
-**NB** The `process` program has a _lot_ of options as it runs the processing pipeline in full.
+**NB** The `process` programme has a _lot_ of options as it runs the processing pipeline in full.
 
 ### Reducing Output
 
@@ -233,35 +233,17 @@ want to make to the default configuration and how to make them.
 ### Generating Configuration File
 
 TopoStats will use some reasonable default parameters by default, but typically you will want to customise the
-parameters that are used. This is achieved using a [configuration](configuration) file. This is a
+parameters that are used. This is achieved using a [configuration](configuration.md) file. This is a
 [YAML](https://yaml.org) file that contains parameters for different settings. For convenience you can generate
-a sample configuration file in your current working directory using the `topostats create-config` sub-command. There are
-a number of arguments available. They key one is `--config` which defines what configuration file is written and
-currently has three possible options `default`, `simple`, `mplstyle` or `var_to_label`. See `topostats create-config ---help`
-for descriptions of other available options. **NB** if `--filename` is omitted then the value of `--config` determines
-the filename the configuration is written to as shown below.
+a sample configuration file in your current working directory using the `topostats create-config` sub-command. It
+takes a single argument, the name of the file to save the configuration to (e.g. `config.yaml` or `settings.yaml`), and
+it will write the current default configuration to that file.
 
 ```bash
-topostats create-config --config default --filename my_default_config.yaml
-[Tue, 28 Oct 2025 16:12:16] [INFO    ] [topostats] TopoStats version : 2.3.2.dev600
-[Tue, 28 Oct 2025 16:12:16] [INFO    ] [topostats] Commit            : 54e4b940a
-[Tue, 28 Oct 2025 16:12:16] [INFO    ] [topostats] A sample configuration has been written to : my_default_config.yaml
-topostats create-config --config default
-[Tue, 28 Oct 2025 16:12:18] [INFO    ] [topostats] TopoStats version : 2.3.2.dev600
-[Tue, 28 Oct 2025 16:12:18] [INFO    ] [topostats] Commit            : 54e4b940a
-[Tue, 28 Oct 2025 16:12:18] [INFO    ] [topostats] A sample configuration has been written to : default_config.yaml
-❱ topostats create-config --config simple
-[Tue, 28 Oct 2025 16:12:22] [INFO    ] [topostats] TopoStats version : 2.3.2.dev600
-[Tue, 28 Oct 2025 16:12:22] [INFO    ] [topostats] Commit            : 54e4b940a
-[Tue, 28 Oct 2025 16:12:22] [INFO    ] [topostats] A sample configuration has been written to : simple_config.yaml
-❱ topostats create-config --config mplstyle
-[Tue, 28 Oct 2025 16:12:47] [INFO    ] [topostats] TopoStats version : 2.3.2.dev600
-[Tue, 28 Oct 2025 16:12:47] [INFO    ] [topostats] Commit            : 54e4b940a
-[Tue, 28 Oct 2025 16:12:47] [INFO    ] [topostats] A sample configuration has been written to : topostats.mplstyle
-topostats create-config --config var_to_label
-[Tue, 28 Oct 2025 16:13:03] [INFO    ] [topostats] TopoStats version : 2.3.2.dev600
-[Tue, 28 Oct 2025 16:13:03] [INFO    ] [topostats] Commit            : 54e4b940a
-[Tue, 28 Oct 2025 16:13:03] [INFO    ] [topostats] A sample configuration has been written to : var_to_label.yaml
+topostats create-config --filename my_config.yaml
+ls -l
+my_config.yaml
+sample_image_scan_2022-12-08-1204.spm
 ```
 
 You can now edit and/or rename the `my_config.yaml`. It can be called anything you want,
@@ -294,10 +276,8 @@ ones you may want to change are....
 - `plotting` : `image_set` (default `core`) specifies which steps of the processing to plot images of. The value `all`
   gets images for all stages, `core` saves only a subset of images.
 
-Most of the other configuration options can be left on their default values for now but the file is fully commented and
-should you wish to change settings you should read these comments.
-
-Once you have made any changes save the file and return to your terminal.
+Most of the other configuration options can be left on their default values for now. Once you have made any changes save
+the file and return to your terminal.
 
 ### Running TopoStats with `my_config.yaml`
 
@@ -324,28 +304,6 @@ topostats --config my_config.yaml process
 
 On successful completion you should see the same message noted above.
 
-### Renaming Bruker Files
-
-Older Bruker devices output files with somewhat uninformative numerical file extensions (e.g. `.001`, `.002`, `.003`
-etc.). TopoStats will automatically detect and process these if the configuration file is `file_ext: .spm` (or on the
-command line the `--file-ext/-f .spm` option is used). However, for convenience a sub-processor is provided which will
-append the suffix `.spm` to all files found recursively with numerical extensions in the specified directory. You can
-specify the `--base-dir /path/to/a/directory` if you are not already in the same directory as the files, otherwise it
-will use the current directory. You then use the sub-command `bruker-rename`.
-
-```bash
-topostats --base-dir /path/to/a/directory bruker-rename
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] The YAML configuration file is valid.
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] Total Bruker files found : 5
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] Old style files found    : 5
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] Renaming files...
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] test.002 > test.002.spm
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] test.001 > test.001.spm
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] nested/directory/test.004 > nested/directory/test.004.spm
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] nested/directory/test.999999 > nested/directory/test.999999.spm
-[Tue, 24 Jun 2025 12:18:15] [INFO    ] [topostats] nested/directory/test.003 > nested/directory/test.003.spm
-```
-
 ## Output
 
 The output from running TopoStats is saved in the location defined in the configuration file by `output_dir`. The
@@ -355,13 +313,10 @@ used your own customised configuration file (specifically if you have modified t
 At the top level of the output directory are a few files produced:
 
 - `config.yaml` : a copy of the configuration used to process the images.
-- `grain_statistics.csv` : a Comma Separated Variable ASCII plain-text file of the grain statistics.
-
-If the `output_stats` option has been set to `full` the following additional files will be written to the output directory:
-
-- `output/branch_statistics.csv` : a Comma Separated Variable ASCII plain-text file of the branched skeleton
+- `all_statistics.csv` : a Comma Separated Variable ASCII plain-text file of the grain statistics.
+- `all_disordered_segment_statistics.csv` : a Comma Separated Variable ASCII plain-text file of the branched skeleton
   statistics.
-- `output/molecule_statistics.csv` : a Comma Separated Variable ASCII plain-text file of the molecule statistics.
+- `all_mol_statistics.csv` : a Comma Separated Variable ASCII plain-text file of the molecule statistics.
 
 **Note:** - If all grains / branch segments of a column have a `None` or `NaN` value, the column will not be present in
 the output `.csv` file.
@@ -387,11 +342,11 @@ one under `level1/a`...
 
 ```bash
 [4.0K Nov 15 14:06]  output
-|-- [ 381 Nov 15 14:06]  output/grain_statistics.csv
+|-- [ 381 Nov 15 14:06]  output/all_statistics.csv
 |-- [ 733 Nov 15 14:06]  output/all_disordered_tracing_statistics.csv
-|-- [ 254 Nov 15 14:06]  output/molecule_statistics.csv
+|-- [ 254 Nov 15 14:06]  output/all_mol_statistics.csv
 |-- [7.4K Nov 15 14:06]  output/config.yaml
-|-- [ 222 Nov 15 14:06]  output/image_statistics.csv
+|-- [ 222 Nov 15 14:06]  output/image_stats.csv
 |-- [4.0K Nov 15 14:06]  output/level1
 |   |-- [4.0K Nov 15 14:06]  output/level1/a
 |   |   |-- [4.0K Nov 15 14:06]  output/level1/a/Processed
@@ -410,24 +365,6 @@ each. If this option is `all` then there is also a sub-directory for each image 
 directories `filters`, `grains/below` and `grains/above` which contain additional images from the processing stages and
 an accompanying histogram for each image showing the distribution of pixel heights for that image.
 
-### `.topostats` files
-
-TopoStats has implemented its own file format for saving data with the extension `.topostats`. This is an [HDF5][hdf5]
-file that uses a hierarchical structure for storing data. Initially an independent versioning system was implemented to
-denote the version of files, however after `0.2` of the file format indicator and release `v2.4.0` of TopoStats we
-switched to storing the version of TopoStats that the file was processed with (this aids with reproducibility and aligns
-with the [FAIR for Research Software Principles][fair4rs]).
-
-By saving data in this format it makes it easy to carry out "experiments" on the by re-running processing steps without
-having to re-run the whole pipeline (currently a work in progress).
-
-If you want to look at the structure of these files you can use [h5glance][h5glance] at the command line or load them
-into Notebooks. The structure is fairly self-explanatory as its based on a dictionary structure with descriptive keys
-denoting what the contents are (typically Numpy arrays).
-
-Originally (`< 2.4.0` and upto `0.2`) the structure was orientated around the stage of processing. Subsequent to this
-(`>= 2.4.0`) the unit of organisation became the individual detected grains and their sub-molecules/grains.
-
 ## Summary Plots
 
 By default TopoStats will take the data that has been summarised across all files and generate a series of plots,
@@ -438,13 +375,13 @@ is `output/summary_distributions`. If you have used a custom configuration file 
 `summary_distributions` nested under the directory specified for the `output`, e.g. if you used the current directory as
 output you will have a `summary_distributions` directory present.
 
-Sometimes you may have a `grain_statistics.csv` from a run and wish to plot distributions of additional statistics that
-were not already plotted. This can be achieved using the command line program `toposum` which is included.
+Sometimes you may have a `all_statistics.csv` from a run and wish to plot distributions of additional statistics that
+were not already plotted. This can be achieved using the command line programme `toposum` which is included.
 
 **NB** Because of the inherent complexity of plots this script is, by design, limited in the scope to which plots can be
 configured. It uses the plotting library [Seaborn](https://seaborn.pydata.org/) (which is built on top of
 [Matplotlib](https://matplotlib.org/)) to produce basic plots, which are not intended for publication. If you want to
-tweak or customise plots it is recommended to load `grain_statistics.csv` into a [Jupyter Notebook](https://jupyter.org)
+tweak or customise plots it is recommended to load `all_statistics.csv` into a [Jupyter Notebook](https://jupyter.org)
 and generate the plots you want there. A sample notebook is included to show how to do this.
 
 ### Configuring Summary Plots
@@ -476,7 +413,3 @@ The option `pickle_plots: True` will save to the specified `output_dir` the file
 binary format that saves the plots that have been generated and saved in nested dictionaries so that they can be loaded
 again. The Notebook `notebooks/02-Summary-statistics-and-plots.ipynb` shows how to load these and make simple
 modifications to the the plots.
-
-[fair4rs]: https://www.nature.com/articles/s41597-022-01710-x
-[h5glance]: https://pypi.org/project/h5glance/
-[hdf5]: https://www.hdfgroup.org/solutions/hdf5/
