@@ -17,8 +17,6 @@ import topostats
 from topostats.classes import GrainCrop
 from topostats.logs.logs import LOGGER_NAME
 from topostats.theme import Colormap
-from pathlib import Path
-import yaml
 
 # pylint: disable=dangerous-default-value
 # pylint: disable=too-many-arguments
