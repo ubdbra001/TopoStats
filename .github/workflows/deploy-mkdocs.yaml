@@ -10,6 +10,15 @@ on:
       - '!*alpha*'    
       - '!*beta*'
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version folder to deploy to (e.g., dev, v2.4.0)'
+        required: true
+        default: 'dev'
+      is_latest:
+        description: 'Mark this version as "latest"? (Check for stable releases)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
