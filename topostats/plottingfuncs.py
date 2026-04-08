@@ -186,8 +186,6 @@ class Images:
         number_grains: bool = False,
         trace_linewidth: float = 3.0
     ) -> None:
-
-
         """
         Initialise the class.
 
@@ -477,7 +475,6 @@ class Images:
                             color=colour,
                             linewidth=self.trace_linewidth,
                         )
-                        
                 plt.title(self.title)
                 plt.xlabel("Nanometres")
                 plt.ylabel("Nanometres")
