@@ -3,6 +3,8 @@
 TopoStats batch processes scans from Atomic Force Microscopy. Please read through the various documentation sections
 listed below to find out more.
 
+Here is something new to notice.
+
 - [Introduction](introduction.md)
 - [Installation](usage/installation.md)
 - [Usage](usage/index.md)
