@@ -39,7 +39,7 @@ dependencies = [
   "h5py",
   "keras",
   "matplotlib",
-  "numpy~=2.0.0",  # Until TensorFlow supports newer versions
+  "numpy~=2.0.0", # Until TensorFlow supports newer versions
   "numpyencoder",
   "pandas",
   "pillow<=11.1.0",
@@ -69,16 +69,13 @@ tests = [
   "syrupy",
 ]
 docs = [
-  "Sphinx",
-  "myst_parser",
-  "numpydoc",
-  "pydata_sphinx_theme",
-  "sphinx-autoapi",
-  "sphinx-multiversion",
-  "sphinx_markdown_tables",
-  "sphinx_rtd_theme",
-  "sphinxcontrib-mermaid",
-  "sphinxcontrib-napoleon",
+  "mike>=2.1.4",
+  "mkdocs>=1.6.1",
+  "mkdocs-material>=9.7.6",
+  "mkdocs-mermaid2-plugin>=1.2.3",
+  "mkdocstrings>=1.0.3",
+  "mkdocstrings-python>=2.0.3",
+  "pymdown-extensions>=10.21.2",
 ]
 dev = [
   "black",
