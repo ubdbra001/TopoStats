@@ -1,0 +1,71 @@
+name: Publish Versioned Docs
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+  release:
+    types:
+      - published     
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    if: >
+      (github.event_name == 'workflow_dispatch') ||
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
+      (github.event_name == 'release' && github.event.release.prerelease == false)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+          ref: ${{ github.event_name == 'pull_request' && 'main' || github.ref }}
+
+      - name: Set up Python from pyproject.toml
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: 'pyproject.toml'
+
+      - name: Install package and docs dependencies
+        run: |
+          pip install .[docs]
+
+      - name: Configure Git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages --depth=1 || true
+
+      - name: Deploy Development Docs
+        if: github.event_name != 'release'
+        run: mike deploy --push dev
+
+      - name: Deploy Release Docs
+        if: github.event_name == 'release'
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          # Clean up the title of the previous 'latest' version
+          PREV_LATEST=$(mike list | grep "(latest)" | awk '{print $1}')
+
+          # Probably overkill but leaving in as fallback - check versions.json if mike list is empty
+          if [ -z "$PREV_LATEST" ]; then
+            git checkout origin/gh-pages -- versions.json 2>/dev/null || echo "[]" > versions.json
+            PREV_LATEST=$(jq -r '.[] | select(.aliases[]? == "latest") | .version' versions.json)
+          fi
+
+          if [ -n "$PREV_LATEST" ] && [ "$PREV_LATEST" != "null" ] && [ "$PREV_LATEST" != "$TAG" ]; then
+            echo "Stripping (latest) suffix from $PREV_LATEST"
+            mike retitle $PREV_LATEST "$PREV_LATEST"
+          fi
+
+          mike deploy --push --update-aliases $TAG latest -t "$TAG (latest)"
+          mike set-default --push latest
