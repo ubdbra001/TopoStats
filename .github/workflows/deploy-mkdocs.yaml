@@ -1,24 +1,15 @@
 name: Publish Versioned Docs
 
 on:
-  pull_request:       # Trigger 1: PR interactions targeting main
+  pull_request:
     branches:
       - main
     types:
-      - closed        # Only trigger when the PR is closed
-  release:            # Trigger 2: A release is published via the GitHub UI
+      - closed
+  release:
     types:
       - published     
-  workflow_dispatch:  # Trigger 3: Manual trigger from GitHub UI
-    inputs:
-      version:
-        description: 'Version folder to deploy to (e.g., dev, v2.4.0)'
-        required: true
-        default: 'dev'
-      is_latest:
-        description: 'Mark this version as "latest"? (Shifts the alias)'
-        type: boolean
-        default: false
+  workflow_dispatch:
 
 # Ensure the action has permission to push to the gh-pages branch
 permissions:
@@ -26,33 +17,23 @@ permissions:
 
 jobs:
   deploy:
-    # CRITICAL: If this is a PR event, only run the job if it was actually merged!
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     
-    # Map manual inputs to environment variables safely
-    env: 
-      MANUAL_VERSION: ${{ inputs.version }}
-      MANUAL_IS_LATEST: ${{ inputs.is_latest }}
-      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 
-          # For PR merges, explicitly checkout main to get the newly merged code.
-          # Otherwise, checkout the ref that triggered the run (like the release tag).
           ref: ${{ github.event_name == 'pull_request' && 'main' || github.ref }}
 
       - name: Set up Python from pyproject.toml
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version-file: 'pyproject.toml'
 
       - name: Install package and docs dependencies
         run: |
-          python -m pip install --upgrade pip
-          # Installs your package AND the optional [docs] dependencies
           pip install .[docs]
 
       - name: Configure Git user
@@ -65,62 +46,31 @@ jobs:
           # Safely fetch the existing gh-pages branch so mike can read its history
           git fetch origin gh-pages || true
           
-          # ==========================================
-          # SCENARIO A: MANUAL TRIGGER
-          # ==========================================
           if [ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]; then
-            echo "Manual deployment triggered for version: $MANUAL_VERSION"
-            
-            if [ "$MANUAL_IS_LATEST" == "true" ]; then
-              # 1. Fetch versions.json
-              git checkout origin/gh-pages -- versions.json 2>/dev/null || echo "[]" > versions.json
-              
-              # 2. Find the previous 'latest' version
-              PREV_LATEST=$(jq -r '.[] | select(.aliases != null) | select(.aliases[] == "latest") | .version' versions.json)
-              
-              # 3. Strip the suffix from the previous version
-              if [ -n "$PREV_LATEST" ] && [ "$PREV_LATEST" != "null" ] && [ "$PREV_LATEST" != "$MANUAL_VERSION" ]; then
-                echo "Removing latest suffix from $PREV_LATEST..."
-                mike retitle $PREV_LATEST $PREV_LATEST
-              fi
-              
-              # 4. Deploy the new manual version with the suffix
-              mike deploy --push --update-aliases $MANUAL_VERSION latest -t "$MANUAL_VERSION (latest)"
-              mike set-default --push latest
-            else
-              # Standard manual deploy without touching the 'latest' alias
-              mike deploy --push $MANUAL_VERSION -t "$MANUAL_VERSION (Manual Build)"
-            fi
+            echo "Manual deployment triggered"
+            mike deploy --push dev
 
-          # ==========================================
-          # SCENARIO B: PULL REQUEST MERGED
-          # ==========================================
           elif [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
             echo "Deploying dev version from merged PR..."
-            # Overwrites the 'dev' folder with the absolute newest code on main
-            mike deploy --push dev -t "Development"
+            mike deploy --push dev
             
-          # ==========================================
-          # SCENARIO C: GITHUB RELEASE PUBLISHED
-          # ==========================================
           elif [ "$GITHUB_EVENT_NAME" == "release" ]; then
-            # GitHub automatically stores the release tag name here (e.g., v2.4.0)
             TAG=$GITHUB_REF_NAME
             echo "Starting stable deployment for release: $TAG..."
 
-            # 1. Fetch versions.json
+            # Fetch versions.json
             git checkout origin/gh-pages -- versions.json 2>/dev/null || echo "[]" > versions.json
             
-            # 2. Find the previous 'latest' version
+            # Find the previous 'latest' version
             PREV_LATEST=$(jq -r '.[] | select(.aliases != null) | select(.aliases[] == "latest") | .version' versions.json)
             
-            # 3. Strip the suffix from the previous version
+            # Strip the suffix from the previous version
             if [ -n "$PREV_LATEST" ] && [ "$PREV_LATEST" != "null" ] && [ "$PREV_LATEST" != "$TAG" ]; then
               echo "Removing latest suffix from $PREV_LATEST..."
               mike retitle $PREV_LATEST $PREV_LATEST
             fi
             
-            # 4. Deploy the new release tag as latest
+            # Deploy the new release tag as latest
             echo "Deploying $TAG as the new latest..."
             mike deploy --push --update-aliases $TAG latest -t "$TAG (latest)"
             mike set-default --push latest
