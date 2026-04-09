@@ -152,7 +152,9 @@ class Images:
     savefig_dpi : str | float, optional
         The resolution of the saved plot (default 'figure').
     number_grains : bool
-            Optionally number each grain in a plot.
+        Optionally number each grain in a plot.
+    trace_linewidth : float
+        Width of lines when plotting splines/curvature.
     """
 
     def __init__(
@@ -252,6 +254,8 @@ class Images:
             The resolution of the saved plot (default 'figure').
         number_grains : bool
             Optionally number each grain in a plot.
+        trace_linewidth : float
+            Width of lines when plotting splines/curvature.
         """
         if style is None:
             style = "topostats.mplstyle"
