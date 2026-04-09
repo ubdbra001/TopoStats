@@ -479,6 +479,11 @@ DEFAULT_CONFIG_SCHEMA = Schema(
                 False,
                 error=("Invalid value in config for 'plotting.number_grain_plots', valid values are 'True' or 'False'"),
             ),
+            "trace_linewidth": And(
+                Or(int, float),
+                lambda n: n > 0.0,
+                error=("Invalid value in config for 'plotting.trace_linewidth', valid values are int or float"),
+            ),
         },
         "summary_stats": {
             "run": Or(

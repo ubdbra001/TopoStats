@@ -152,7 +152,9 @@ class Images:
     savefig_dpi : str | float, optional
         The resolution of the saved plot (default 'figure').
     number_grains : bool
-            Optionally number each grain in a plot.
+        Optionally number each grain in a plot.
+    trace_linewidth : float
+        Width of lines when plotting splines/curvature.
     """
 
     def __init__(
@@ -184,6 +186,7 @@ class Images:
         histogram_bins: int | None = None,
         savefig_dpi: str | float | None = None,
         number_grains: bool = False,
+        trace_linewidth: float = 1.0,
     ) -> None:
         """
         Initialise the class.
@@ -251,6 +254,8 @@ class Images:
             The resolution of the saved plot (default 'figure').
         number_grains : bool
             Optionally number each grain in a plot.
+        trace_linewidth : float
+            Width of lines when plotting splines/curvature.
         """
         if style is None:
             style = "topostats.mplstyle"
@@ -283,6 +288,7 @@ class Images:
         self.histogram_bins = mpl.rcParams["hist.bins"] if histogram_bins is None else histogram_bins
         self.savefig_dpi = mpl.rcParams["savefig.dpi"] if savefig_dpi is None else savefig_dpi
         self.number_grains = number_grains
+        self.trace_linewidth = trace_linewidth
 
     def plot_histogram_and_save(self) -> tuple | None:
         """
@@ -386,9 +392,8 @@ class Images:
                                         (image.shape[0] - (min_row + point[0])) * self.pixel_to_nm_scaling,
                                     ],
                                     color=color,
-                                    linewidth=1,
+                                    linewidth=self.trace_linewidth,
                                 )
-
             # save the figure
             plt.title(self.title)
             plt.xlabel("Nanometres")
@@ -472,9 +477,8 @@ class Images:
                                 (grain_crop.image.shape[0] - point[0]) * self.pixel_to_nm_scaling,
                             ],
                             color=colour,
-                            linewidth=3,
+                            linewidth=self.trace_linewidth,
                         )
-
                 plt.title(self.title)
                 plt.xlabel("Nanometres")
                 plt.ylabel("Nanometres")
@@ -566,7 +570,7 @@ class Images:
                         grain_coords[:, 1] * self.pixel_to_nm_scaling,
                         (shape[0] - grain_coords[:, 0]) * self.pixel_to_nm_scaling,
                         c="c",
-                        linewidth=1,
+                        linewidth=self.trace_linewidth,
                     )
 
             plt.title(self.title)

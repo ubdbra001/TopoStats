@@ -1274,6 +1274,7 @@
         'savefig_dpi': 100,
         'savefig_format': None,
         'style': 'topostats.mplstyle',
+        'trace_linewidth': 1.0,
         'zrange': list([
           None,
           None,
@@ -2764,6 +2765,7 @@
         'savefig_dpi': 100,
         'savefig_format': None,
         'style': 'topostats.mplstyle',
+        'trace_linewidth': 1.0,
         'zrange': list([
           None,
           None,
