@@ -184,7 +184,7 @@ class Images:
         histogram_bins: int | None = None,
         savefig_dpi: str | float | None = None,
         number_grains: bool = False,
-        trace_linewidth: float = 1.0
+        trace_linewidth: float = 1.0,
     ) -> None:
         """
         Initialise the class.

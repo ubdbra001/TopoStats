@@ -59,14 +59,14 @@ nav:
       - Grainstats: api/grainstats.md
       - IO: api/io.md
       - Logs:
-        - api/logs/index.md
-        - Logs: api/logs/logs.md
+          - api/logs/index.md
+          - Logs: api/logs/logs.md
       - Measure:
-        - api/measure/index.md
-        - Curvature: api/measure/curvature.md
-        - Feret: api/measure/feret.md
-        - Geometry: api/measure/geometry.md
-        - Height Profiles: api/measure/height_profiles.md
+          - api/measure/index.md
+          - Curvature: api/measure/curvature.md
+          - Feret: api/measure/feret.md
+          - Geometry: api/measure/geometry.md
+          - Height Profiles: api/measure/height_profiles.md
       - Plotting: api/plotting.md
       - PlottingFuncs: api/plottingfuncs.md
       - Processing: api/processing.md
@@ -76,14 +76,14 @@ nav:
       - Theme: api/theme.md
       - Thresholds: api/thresholds.md
       - Tracing:
-        - api/tracing/index.md
-        - Disorderd Tracing: api/tracing/disordered_tracing.md
-        - NodeStats: api/tracing/nodestats.md
-        - Ordered Tracing: api/tracing/ordered_tracing.md
-        - Pruning: api/tracing/pruning.md
-        - Skeletonize: api/tracing/skeletonize.md
-        - Splining: api/tracing/splining.md
-        - Tracing Funcs: api/tracing/tracingfuncs.md
+          - api/tracing/index.md
+          - Disorderd Tracing: api/tracing/disordered_tracing.md
+          - NodeStats: api/tracing/nodestats.md
+          - Ordered Tracing: api/tracing/ordered_tracing.md
+          - Pruning: api/tracing/pruning.md
+          - Skeletonize: api/tracing/skeletonize.md
+          - Splining: api/tracing/splining.md
+          - Tracing Funcs: api/tracing/tracingfuncs.md
       - Utils: api/utils.md
       - Validation: api/validation.md
 
@@ -96,10 +96,10 @@ plugins:
   - search
   - mkdocstrings:
       handlers:
-       python:
-         options:
-           docstring_style: numpy
-           show_signature_annotations: true
+        python:
+          options:
+            docstring_style: numpy
+            show_signature_annotations: true
   - mike:
       version_selector: true
 
