@@ -46,7 +46,7 @@ jobs:
           pip install -e .[tests]
       - name: Test with pytest
         run: |
-          pytest --cov=topostats --mpl --numprocesses=logical
+          pytest --cov=topostats --mpl --numprocesses=logical --snapshot-warn-unused
       - name: Determine coverage
         run: |
           coverage xml
