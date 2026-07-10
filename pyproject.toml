@@ -59,7 +59,7 @@ tests = [
   "pytest-profiling",
   "pytest-xdist",
   "filetype",
-  "syrupy==5.3.2",
+  "syrupy<5.4",
 ]
 docs = [
   "mike>=2.1.4",
