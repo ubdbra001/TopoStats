@@ -1,15 +1,5 @@
 [
   {
-    "version": "latest",
-    "title": " (latest)",
-    "aliases": []
-  },
-  {
-    "version": "dev",
-    "title": "dev (Manual Build)",
-    "aliases": []
-  },
-  {
     "version": "v9.1.1",
     "title": "v9.1.1",
     "aliases": []
