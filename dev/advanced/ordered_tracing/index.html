@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1893,34 +1893,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/measure/height_profiles/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Height Profiles
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2714,7 +2686,7 @@ NodeStats.</p>
 <p>This module orders the disordered trace pixel-by-pixel (<code>topostats</code> method) or segment-by-segment (<code>nodestats</code> method),
 giving direction to the trace and creating a path to follow. It adds the number of identified molecules (found by
 restarting the trace when using the <code>nodestats</code> method) and whether the trace contains endpoints and is therefore
-circular or not to the <code>all_statistics.csv</code>.</p>
+circular or not to the <code>grain_statistics.csv</code>.</p>
 <p>Some quick FYI's:</p>
 <ul>
 <li><strong>Multiple molecules</strong> - By design the <code>topostats</code> ordering method will only produce a single ordered trace per grain,
@@ -2838,18 +2810,18 @@ pixel which has the lowest angular change.</p>
 <tbody>
 <tr>
 <td><code>circular</code></td>
-<td>The number of molecules found by following the tracing paths. Note: This will always be 1 for the TopoStats method.</td>
-<td><code>integer</code></td>
-</tr>
-<tr>
-<td><code>topology</code></td>
 <td>Whether the disordered trace contains an endpoint.</td>
 <td><code>bool</code></td>
 </tr>
 <tr>
+<td><code>topology</code></td>
+<td>Topological classification of the molecule.</td>
+<td><code>str</code></td>
+</tr>
+<tr>
 <td><code>topology_flip</code></td>
-<td>The number of molecules found by following the tracing paths. Note: This will always be 1 for the TopoStats method.</td>
-<td><code>integer</code></td>
+<td>Reverse of the topological classification of the molecule.</td>
+<td><code>str</code></td>
 </tr>
 <tr>
 <td><code>processing</code></td>
@@ -2939,7 +2911,7 @@ only, not twist) in DNA samples as well as a preliminary step to obtaining the l
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       
