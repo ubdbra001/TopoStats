@@ -10,6 +10,10 @@ on:
     types:
       - published
   workflow_dispatch:
+    is_release:
+        description: 'Deploy as a Release version (uses selected branch/tag name)?'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -44,16 +48,18 @@ jobs:
           git fetch origin gh-pages --depth=1 || true
 
       - name: Deploy Development Docs
-        if: github.event_name != 'release'
+        if: github.event_name != 'release' &&
+          (github.event_name != 'workflow_dispatch' || inputs.is_release == false)
         run: mike deploy --push dev
 
       - name: Deploy Release Docs
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' ||
+          (github.event_name == 'workflow_dispatch' && inputs.is_release == true)
         env:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           # Clean up the title of the previous 'latest' version
-          PREV_LATEST=$(mike list | grep "(latest)" | awk '{print $1}')
+          PREV_LATEST=$(mike list | grep "(latest)" | awk '{print $1}' | sed 's/"//g')
 
           # Probably overkill but leaving in as fallback - check versions.json if mike list is empty
           if [ -z "$PREV_LATEST" ]; then
