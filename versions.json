@@ -1,15 +1,10 @@
 [
   {
-    "version": "update-docs-workflow",
-    "title": "update-docs-workflow (latest)",
+    "version": "v9.1.1",
+    "title": "v9.1.1 (latest)",
     "aliases": [
       "latest"
     ]
-  },
-  {
-    "version": "v9.1.1",
-    "title": "v9.1.1",
-    "aliases": []
   },
   {
     "version": "v9.1.1rc1",
